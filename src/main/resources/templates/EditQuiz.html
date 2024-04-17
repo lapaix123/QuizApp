@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz | EditQuiz</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <!--fav-icon-->
+    <link rel="shortcut icon" href="images/favicon.png"/>
+</head>
+<body>
+<section class="main">
+
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" height="40px" />
+        </a>
+        <input class="menu-btn" type="checkbox" id="menu-btn"/>
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <ul class="menu" style="border-radius: 5px;">
+            <li><a href="adminDashboard.html">Back</a></li>
+            <li><a href="Login.html" class="active" th:onclick="'document.getElementById(\'id01\').style.display=\'block\''" style="width:auto; border-radius: 5px; cursor: pointer;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <form action="editQuizServlet" method="post"> <!-- Ensure this action points to your quiz saving servlet -->
+        <h2>Edit Quiz</h2>
+        <div class="form-group">
+            <label for="title">Quiz Title</label>
+            <input type="text" id="title" placeholder="Enter Quiz Title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="timer">Timer (in seconds)</label>
+            <input type="number" id="timer" placeholder="Enter Timer Duration" name="timer" required>
+        </div>
+        <br />
+        <div class="form-group submit-btn">
+            <input type="submit" value="Update Quiz">
+        </div>
+    </form>
+
+</section>
+<!--footer------------->
+<footer>
+    <p>Copyright (C) - 2023 | Developed By <a>MUVUNYI Arsene</a> </p>
+</footer>
+
+
+</body>
+</html>

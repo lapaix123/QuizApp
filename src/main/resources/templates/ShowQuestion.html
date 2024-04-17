@@ -1,0 +1,139 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz | Answer</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <!--fav-icon-->
+    <link rel="shortcut icon" href="images/favicon.png"/>
+    <script src="asserts/script.js"></script>
+    <style>
+        .question-container {
+            display: none; /* Hide all questions by default */
+        }
+
+        .question-container:first-child {
+            display: block; /* Display the first question */
+        }
+    </style>
+</head>
+<body>
+<section class="main">
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" height="40px" />
+        </a>
+        <input class="menu-btn" type="checkbox" id="menu-btn"/>
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <ul class="menu" style="border-radius: 5px;">
+            <li><a href="studentDashboard.html">Back</a></li>
+            <li><a href="Login.html" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;">Logout</a></li>
+        </ul>
+    </nav>
+    <form action="GradeQuizServlet" method="post">
+        <h1>Answer Quiz</h1>
+        <!-- Display timer -->
+        <div id="timer">Timer: <span id="timerDisplay"></span></div>
+        <input type="hidden" name="quizId" value="${param.quizId}">
+        <div id="questions">
+            <c:forEach var="question" items="${questions}" varStatus="status">
+                <div class="question-container" id="question${status.index}">
+                    <p>${question.question}</p>
+                    <ul>
+                        <li><input type="radio" name="answer_${question.id}" value="${question.option1}" onchange="showNextQuestion(${status.index})">${question.option1}</li>
+                        <li><input type="radio" name="answer_${question.id}" value="${question.option2}" onchange="showNextQuestion(${status.index})">${question.option2}</li>
+                        <li><input type="radio" name="answer_${question.id}" value="${question.option3}" onchange="showNextQuestion(${status.index})">${question.option3}</li>
+                        <li><input type="radio" name="answer_${question.id}" value="${question.option4}" onchange="showNextQuestion(${status.index})">${question.option4}</li>
+                    </ul>
+                </div>
+            </c:forEach>
+        </div>
+        <button type="submit" style="display:none;" id="submitQuiz">Submit Quiz</button>
+    </form>
+</section>
+<script>
+    //Function to start the timer
+    function startTimer(duration) {
+        var timerDisplay = document.getElementById('timerDisplay');
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            timerDisplay.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = 0; // Set timer to 0 if it goes negative
+                // Automatically submit the quiz when the timer ends
+                document.getElementById('submitQuiz').click();
+            }
+        }, 1000);
+    }
+
+    // Start timer when the page loads
+    window.onload = function () {
+        // Get timer duration from URL query parameter
+        var timerDuration = parseInt(getUrlParameter('timer'));
+        startTimer(timerDuration);
+    };
+
+    // Function to get URL query parameter
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    function showNextQuestion(currentIndex) {
+        console.log('Current Index:', currentIndex);
+
+        // Hide the current question
+        const currentQuestion = document.getElementById(`question${currentIndex}`);
+        if (currentQuestion) {
+            currentQuestion.style.display = 'none';
+        }
+
+        // Find the next visible question
+        const allQuestions = document.querySelectorAll('.question-container');
+        let nextQuestion;
+        for (let i = currentIndex + 1; i < allQuestions.length; i++) {
+            if (allQuestions[i].style.display !== 'none') {
+                nextQuestion = allQuestions[i];
+                break;
+            }
+        }
+        console.log('Next Question:', nextQuestion);
+
+        // Display the next question or the submit button
+        if (nextQuestion) {
+            nextQuestion.style.display = 'block';
+        } else {
+            // If there is no next question, check if all questions are answered
+            const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked');
+            console.log('Answered Questions Length:', answeredQuestions.length);
+            console.log('All Questions Length:', allQuestions.length);
+            if (answeredQuestions.length === allQuestions.length) {
+                // All questions answered, show the submit button
+                document.getElementById('submitQuiz').style.display = 'block';
+            } else {
+                // There are still unanswered questions, show the next one
+                const unansweredQuestion = document.querySelector('.question-container:not([style="display: none;"])');
+                if (unansweredQuestion) {
+                    unansweredQuestion.nextElementSibling.style.display = 'block';
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
