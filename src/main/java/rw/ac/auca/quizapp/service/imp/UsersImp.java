@@ -18,8 +18,8 @@ public class UsersImp implements UsersService {
     }
 
     @Override
-    public Users login(Users users) {
-        return null;
+    public Users getUserByEmail(String email, String password) {
+        return dao.findByEmailAndPassword(email, password);
     }
 
     @Override

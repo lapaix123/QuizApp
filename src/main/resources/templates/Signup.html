@@ -23,11 +23,11 @@
         </ul>
     </nav>
 
-    <form action="users" method="post">
+    <form action="/signup" method="post">
         <h2>Signup</h2>
         <div class="form-group fullname">
             <label for="fullname">Full Name</label>
-            <input type="text" id="fullname" placeholder="Enter your full name" name="fullname" th:name="fullname">
+            <input type="text" id="fullname" placeholder="Enter your full name" name="fullname" th:name="firstName">
         </div>
         <div class="form-group student_id">
             <label for="email">Email</label>
@@ -50,7 +50,7 @@
             <input type="submit" value="Signup">
         </div>
         <div>
-            <a th:href="@{/Login.html}" class="info" style="color: #fff;">I already have an account</a>
+            <a th:href="@{/login}" class="info" style="color: #fff;">I already have an account</a>
         </div>
     </form>
 

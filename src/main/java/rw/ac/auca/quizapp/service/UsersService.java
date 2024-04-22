@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UsersService {
     Users newUsers(Users users);
-    Users login(Users users);
+    Users getUserByEmail(String email,String password);
     List<Users> usersList();
 
 }

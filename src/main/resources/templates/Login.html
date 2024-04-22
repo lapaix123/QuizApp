@@ -28,11 +28,11 @@
         </ul>
     </nav>
 
-    <form action="LoginServlet" method="post">
+    <form action="/login" method="post">
         <h2>Login</h2>
         <div class="form-group email">
             <label for="email">Email</label>
-            <input type="text" id="ID" placeholder="Enter your Email" name="email">
+            <input type="text" id="email" placeholder="Enter your Email" name="email">
         </div>
         <div class="form-group password">
             <label for="password">Password</label>
@@ -46,7 +46,7 @@
             <input type="submit" value="Login">
         </div>
         <div>
-            <a href="Signup.html" class="info" style="color: #fff;">Don't Have an Account?</a>
+            <a th:href="@{/signup}" class="info" style="color: #fff;">Don't Have an Account?</a>
         </div>
     </form>
 
