@@ -36,6 +36,15 @@ public class UsersController {
        model.addAttribute("logedinStudent", logedInStudent);
         return "studentDashboard"; // Thymeleaf template name
     }
+    @GetMapping("/teacherDashboard")
+    public String showTeacherDashboard(Model model,HttpSession session) {
+        Users logedInTeacher=(Users) session.getAttribute("login");
+        if(logedInTeacher== null){
+            return "redirect:/login"; // Redirect to login page after
+        }
+        model.addAttribute("logedinStudent", logedInTeacher);
+        return "teacherDashboard"; // Thymeleaf template name
+    }
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -50,7 +59,13 @@ public class UsersController {
             return "redirect:/login"; // Redirect to login page after
         }else{
             session.setAttribute("login",login);
-            return "redirect:/studentDashboard"; // Redirect to dashboard after successful login
+            if(login.getRole().equals("student")){
+                return "redirect:/studentDashboard";
+            }else{
+                return "redirect:/teacherDashboard";
+            }
+
+
         }
 
     }

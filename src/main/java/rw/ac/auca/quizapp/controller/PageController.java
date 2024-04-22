@@ -34,10 +34,7 @@ public class PageController {
         return "ShowScore"; // This will resolve to /WEB-INF/views/home.jsp
     }
 
-    @GetMapping("/teacherDashboard")
-    public String teacherDashboard() {
-        return "teacherDashboard"; // This will resolve to /WEB-INF/views/home.jsp
-    }
+
 }
 
 
