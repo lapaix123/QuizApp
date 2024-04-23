@@ -14,7 +14,6 @@ import rw.ac.auca.quizapp.service.UsersService;
 public class UsersController {
     @Autowired
     private UsersService usersService;
-
     @GetMapping("/signup")
     public String showSignUpForm(Model model) {
         model.addAttribute("user", new Users());
@@ -72,9 +71,7 @@ public class UsersController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        // Invalidate the session
         session.invalidate();
-        // Redirect to the login page after logout
         return "redirect:/login";
     }
 
