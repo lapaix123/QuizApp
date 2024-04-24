@@ -14,9 +14,7 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
-
     private String question;
-
     private String option1;
     private String option2;
     private String option3;

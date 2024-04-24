@@ -65,10 +65,13 @@ public class UsersController {
             return "redirect:/login";
         }else{
             session.setAttribute("login",login);
-            if(login.getRole().equals("student")){
+            if(login.getRole().equals("Student")){
                 return "redirect:/studentDashboard";
-            }else{
+            }
+            else if(login.getRole().equals("Teacher")){
                 return "redirect:/teacherDashboard";
+            }else {
+                return "redirect:/login";
             }
         }
     }
