@@ -23,10 +23,10 @@
         </label>
         <ul class="menu" style="border-radius: 5px;">
             <li><a href="teacherDashboard.html">Back</a></li>
-            <li><a href="Login.html" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;">Logout</a></li>
+            <li><a href="/logout" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;">Logout</a></li>
         </ul>
     </nav>
-    <form action="/quiz" method="post"> <!-- Ensure this action points to your quiz saving servlet -->
+    <form action="/saveQuiz" method="post"> <!-- Ensure this action points to your quiz saving servlet -->
         <h2>Create New Quiz</h2>
         <div class="form-group">
             <label for="title">Quiz Title</label>
@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <label for="timer">Timer (in seconds)</label>
-            <input type="number" id="timer" placeholder="Enter Timer Duration" name="timer" required>
+            <input type="number" id="timer" placeholder="Enter Timer Duration" name="timerSeconds" required>
         </div>
         <br />
         <div class="form-group submit-btn">

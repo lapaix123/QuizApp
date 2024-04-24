@@ -24,4 +24,9 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private List<Result> results;
 
+    @PrePersist
+    protected void onCreate() {
+        dateCreated = LocalDate.now();
+    }
+
 }

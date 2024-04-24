@@ -19,10 +19,6 @@ public class PageController {
         return "Question"; // This will resolve to /WEB-INF/views/home.jsp
     }
 
-    @GetMapping("/quiz")
-    public String Quiz() {
-        return "quiz"; // This will resolve to /WEB-INF/views/home.jsp
-    }
 
     @GetMapping("/showQuiz")
     public String showQuiz() {
