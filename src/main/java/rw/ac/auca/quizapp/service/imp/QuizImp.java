@@ -20,4 +20,35 @@ public class QuizImp implements QuizService {
     public List<Quiz> listOfQuizzes() {
         return dao.findAll();
     }
+
+    @Override
+    public Quiz updateQuiz(Quiz quiz) {
+        Quiz quiz1=dao.findById(quiz.getId()).orElse(null);
+        if(quiz1!=null){
+            quiz1.setTitle(quiz.getTitle());
+            quiz1.setTimerSeconds(quiz.getTimerSeconds());
+            return dao.save(quiz1);
+        }
+        return null;
+    }
+
+    @Override
+    public Quiz getQuizById(int id) {
+        return dao.findById(id).orElse(null);
+    }
+
+    @Override
+    public Quiz deleteQuiz(int id) {
+        Quiz quiz1=dao.findById(id).orElse(null);
+        if(quiz1!=null){
+            dao.delete(quiz1);
+            return quiz1;
+        }
+        return null;
+    }
+
+    @Override
+    public Quiz getQuizWithResults() {
+        return dao.findAllWithResult();
+    }
 }

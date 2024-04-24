@@ -17,7 +17,40 @@ public class ResultImp implements ResultService {
     }
 
     @Override
-    public List<Result> getResultList() {
+    public Result updateResult(Result result) {
+        Result result1=dao.findById(result.getId()).orElse(null);
+        if(result1!= null){
+            result1.setQuiz(result.getQuiz());
+            result1.setScore(result.getScore());
+            return dao.save(result1);
+        }
+        return null;
+    }
+
+    @Override
+    public Result deleteResult(int resultId) {
+        Result result1=dao.findById(resultId).orElse(null);
+        if(result1!=null){
+            dao.delete(result1);
+            return result1;
+        }
+        return null;
+    }
+
+    @Override
+    public Result getResultById(int resultId) {
+
+        return dao.findById(resultId).orElse(null);
+    }
+
+    @Override
+    public List<Result> getAllResults() {
         return dao.findAll();
     }
+
+    @Override
+    public Result getResultByQuizId(int quizId) {
+        return dao.findByQuizId(quizId);
+    }
+
 }
